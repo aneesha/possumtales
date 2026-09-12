@@ -1,0 +1,19 @@
+{
+  "name": "possum-tales",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A locally runnable, interactive 3D Australian picture book.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check dist/app.js && node --check dist/world.js && node --check dist/animals.js && node --check dist/child.js && node --check dist/foil.js && node --check dist/audio.js"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

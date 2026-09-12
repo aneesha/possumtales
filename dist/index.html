@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f3e9" />
+  <meta name="description" content="Possum’s Shiny Secret. An interactive 3D pop-up picture book with a little Australian adventure." />
+  <title>Possum Tales — A little book. A big adventure.</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23294035'/%3E%3Cpath d='M14 17Q24 13 32 20Q42 13 50 17V46Q40 42 32 49Q23 42 14 46Z' fill='%23f6f3e9'/%3E%3Cpath d='M32 20V49' stroke='%23294035' stroke-width='3'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <button class="brand" id="brand" aria-label="Back to the shelf"><span class="brand-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M4 6c4-2 8-1 12 2 4-3 8-4 12-2v20c-5-2-8-1-12 1-4-2-7-3-12-1V6Z" stroke="currentColor" stroke-width="1.7"/><path d="M16 8v19M8 11l4 1m-4 4 4 1m8-5 4-1m-4 6 4-1" stroke="currentColor" stroke-width="1.4"/></svg></span>Possum<span class="brand-light">Tales</span></button>
+    <nav aria-label="Main navigation"><button class="nav-link active" id="shelf-nav">Shelf<span class="nav-line"></span></button><button class="nav-link" id="collection-nav">Treasures <span id="reward-count">0</span></button></nav>
+    <button class="sound-button" id="sound" aria-label="Enable sound" aria-pressed="false"><span id="sound-icon">♪</span><span id="sound-text">Sound on</span></button>
+  </header>
+  <main id="app" class="mode-library">
+    <section class="library-intro" aria-labelledby="library-title">
+      <div class="eyebrow"><span></span> THE LITTLE STORY NOOK</div>
+      <h1 id="library-title">A little book.<br>A big adventure<span class="title-dot">.</span></h1>
+      <p class="intro-text">Open a page.<br>Let a little world come to life.</p>
+      <div class="intro-rule"></div>
+      <p class="shelf-caption">What will you read?</p>
+      <div class="book-info"><span class="edition">01</span><div><h2>Possum Tale</h2><p>Possum’s Shiny Secret</p></div></div>
+      <button id="open-book" class="primary-button" disabled>Open book <span>↗</span></button>
+      <div class="book-meta"><span>6 scenes</span><i></i><span>About 5 min</span><i></i><span>Touch & explore</span></div>
+    </section>
+    <section class="world-wrap" aria-label="Interactive 3D picture book">
+      <div class="stage-top"><span class="stage-label" id="stage-label">THE BOOKSHELF</span><span class="little-stars" aria-hidden="true">✧ · ✦</span></div>
+      <div id="world" tabindex="0" role="application" aria-label="3D picture book. Select Open book to begin."></div>
+      <svg class="speech-pointer" id="speech-pointer" aria-hidden="true" hidden><path id="speech-tail"></path></svg>
+      <div class="speech-bubble" id="speech-bubble" role="status" aria-live="polite" aria-atomic="true" hidden><span class="speaker" id="speaker">Possum</span><p id="dialogue"></p></div>
+      <div class="loading" id="loading"><span class="loading-book">▱</span><p>Preparing your story…</p></div>
+      <div class="shelf-note" id="shelf-note"><span class="note-line"></span>A story waiting for you.<span>✧</span></div>
+      <div class="scene-chip" id="scene-chip" hidden><span id="chapter-number">01</span><span id="chapter-title">What about me?</span></div>
+      <button class="scene-action" id="scene-action" hidden><span class="tap-ring">☝</span><span id="action-text">Tap Possum</span></button>
+      <span class="canvas-caption" id="canvas-caption">A SMALL BOOK. A LITTLE MAGIC.</span>
+    </section>
+    <section class="reader" id="reader" hidden aria-label="Story">
+      <div class="story-copy" aria-live="polite" aria-atomic="true" aria-label="Story narration"><p class="story-note" id="story-note"></p></div>
+      <div id="quiz" class="quiz" hidden><div class="quiz-heading"><span class="eyebrow">A LITTLE QUESTION</span><h2>Why did Possum collect the foil?</h2></div><div class="quiz-options"><button data-answer="wrong">To build a big boat</button><button data-answer="correct">He wanted everyone to notice him</button><button data-answer="wrong">To eat it for dinner</button></div><p id="quiz-feedback" aria-live="polite"></p></div>
+      <div class="reader-controls"><button id="previous" class="circle-button" aria-label="Previous page">←</button><div class="page-track" id="page-track" aria-label="Story progress"></div><button id="next" class="next-button" disabled>Next page <span>→</span></button></div>
+    </section>
+  </main>
+  <footer id="footer"><span>Created by <a href="https://x.com/aneesha" target="_blank" rel="noopener noreferrer">@aneesha</a></span><span>Prompt originally from <a href="https://x.com/sonia_code/status/2098389069592232052" target="_blank" rel="noopener noreferrer">@sonia_code</a></span></footer>
+  <dialog id="collection-dialog" class="collection-dialog"><button class="close-dialog" id="close-collection" aria-label="Close">×</button><div class="eyebrow">LITTLE TREASURES</div><h2>Your little treasures.</h2><div id="treasure-display"></div><p id="treasure-description"></p><button class="primary-button" id="collection-done">Back to the book <span>↗</span></button></dialog>
+
+  <dialog class="reward-overlay" id="reward-overlay"><button id="collect-star" aria-label="Collect the shining star"><span>★</span></button><h2 id="reward-title">You found a shining star!</h2><p id="reward-description">Tap the star to add it to your treasures.</p><button class="primary-button" id="finish" hidden>Back to the shelf <span>↗</span></button></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
